@@ -1,0 +1,208 @@
+---
+title: "Interactive graphs - Ramzi Farhat"
+format: html
+editor: visual
+---
+
+```{r}
+#| warning: false
+library(plotly)
+library(htmlwidgets)
+library(dplyr)
+library(htmltools)
+library(htmlwidgets)
+library(viridis)
+library(viridisLite)
+library(tidyr)
+library(xts)
+library(dygraphs)
+```
+
+## **Graph 1:**
+
+## **Professor Salaries by rank, 2008-2009**
+
+This plot shows the salaries of faculty at a select U.S. college from 2009 (R package 'carData').
+
+The data is grouped by professorial rank : Assistant, Associate, and full professors, and displayed by years since earning degree.
+
+[Steps taken]{.underline}:
+
+-   data was transformed to highlight format
+
+-   Moved title away from zoom and pan tab
+
+-   tooltip shows rank
+
+-   highlighting also shows subset of data by rank
+
+[Findings]{.underline}:
+
+With the interactivity, we can see that
+
+-   Assistant Professor salaries are the lowest
+
+-   Most Associate Professors make more than Assistant Professors. Some (outliers) have graduated more than 10 years ago, but their salaries have not increased. These are those who probably chose not to seek promotion to Full Professor.
+
+-   Most Full Professors make more than Assistants and Associates, but the variance is very large. Those in applied fields make more than those in theoretical fields.
+
+-   The mean salary is around 113,000 USD
+
+    *Issues: depending on its mood, the legend appears duplicated. not sure why!*
+
+```{r}
+#| warning: false
+#read data
+data(Salaries, package="carData")
+```
+
+-   
+
+```{r}
+#| warning: false
+Salaries$yrs.service <- as.numeric(Salaries$yrs.service)
+levels(Salaries$discipline) <- list(Theoretical = "A", Applied = "B")
+levels(Salaries$rank) <- list(Assistant_Professor = "AsstProf", Associate_Professor = "AssocProf", Professor = "Prof")
+head(Salaries)
+```
+
+-   
+
+```{r}
+#| warning: false
+#transform data
+Salaries_highlight <- highlight_key(Salaries, ~rank)
+```
+
+-   
+
+```{r}
+#| warning: false
+#ggplot graph
+p_ps <- ggplot(data = Salaries_highlight, mapping = aes(x = yrs.since.phd, 
+                                               y = salary,
+                                               color=discipline)) + 
+   geom_point(aes(group = rank), 
+                          alpha=0.6) +
+  geom_smooth(method = "loess", alpha=0.2) +
+  theme_classic(base_size=12) + 
+  scale_color_viridis(discrete = TRUE) +
+  ylab("Salary (USD)") + 
+  xlab("Time elapsed since PhD (years)") + 
+  scale_x_continuous(breaks = seq(10, 50, by = 10)) +
+  scale_y_continuous(labels = scales::dollar_format()) 
+```
+
+-   
+
+```{r}
+#| warning: false
+#plotly graph
+p_ps_int <- ggplotly(p_ps, tooltip = "rank")%>% 
+  highlight(on = "plotly_hover", 
+            off = "plotly_relayout")%>%
+  layout(legend = list(x=10, y=0, xanchor='right', yanchor='bottom', title=list(text='<b> Field </b>')))%>% 
+  layout(title = list(text='Professor Salaries', y = 0.95, x = 0.5, xanchor = 'center', yanchor =  'top'))
+p_ps_int
+```
+
+```{r}
+#| warning: false
+mean(Salaries$salary)
+```
+
+## **Graph 2:**
+
+## **Comparing U.S. and Professor Salaries, 1991-2019**
+
+Form the previous graph, the mean salary was around 113K USD in 2009. How does that compare to U.S. salaries then, and to salaries of professors nationwide?
+
+*The data for U.S. salaries was collected from:*
+
+https://www.ssa.gov/oact/cola/central.html
+
+*The data for professorial salaries was collected from:*
+
+https://nces.ed.gov/programs/digest/d19/tables/dt19_316.10.asp
+
+[Steps taken]{.underline}:
+
+-   proper date formatting
+
+-   data transformed to xts format
+
+-   3 dyseries plotted
+
+-   range selector added
+
+-   hover options changed
+
+-   annotation added at date college data was collected (2009) for comparison
+
+-   vertical line added at 2008 - great recession - for reference
+
+[Findings]{.underline}:
+
+-   In general, faculty salaries are higher than both the mean and median of U.S. salaries
+
+-   In 2009, nationwide professors salaries were around 75K, while the mean U.S. salary was 39K, and the median was 26K (rounded up to the nearest thousand). Predictably, faculty make significantly more money than the average worker
+
+-   After the great recession, salaries of university faculty and other workers started to diverge more
+
+-   At 113K, the college in 2009 was paying salaries the were much higher than the national average. Although we don't have more information about it, it seems to be an elite college
+
+    *Issues: I tried resizing the graph to get rid of the scroll bars, but was only able to do it for the horizontal one!*
+
+```{r}
+#| warning: false
+#read data 
+wagexts <- read.csv("wagedataxts.csv")
+wagexts$Year <- as.Date(wagexts$Year) 
+wagexts$Year
+```
+
+-   
+
+```{r}
+#| warning: false
+xts_wage <- xts::xts(x = wagexts %>% select(Mean_Wage, Median_Wage, Professor_Wage),  # data (y axis)
+                     order.by = wagexts %>% pull(Year))                # date (x axis)
+
+xts_wage
+```
+
+-   
+
+```{r}
+#| warning: false
+#basic plot 
+p_wage_dy <- dygraph(xts_wage,  height = "350", width="85%", main = "U.S. Mean and Median vs. Professor Salaries") %>%
+  dyAxis("x", drawGrid = FALSE) %>%
+  dySeries("Mean_Wage", label = "Mean") %>%
+  dySeries("Median_Wage", label = "Median")  %>%
+  dySeries("Professor_Wage", label = "Professor", color = "red", strokeWidth = 2)  %>%
+  dyRangeSelector(height = 20, strokeColor = "")%>%
+  dyAnnotation("2009-01-01", 
+               text = "2009", 
+               width=34, 
+               height=20,
+               tooltip = "Median salary from college survey in 2009 was $113,000") 
+```
+
+-   
+
+```{r}
+#| warning: false
+#with labels
+p_wage_dy2 <- p_wage_dy %>%
+   dyAxis(
+    "y",
+    label = "Salaries (USD)") %>%
+   dyAxis(
+    "x",
+    label = "Year", valueRange = c(1991, 2018))  %>%
+  dyOptions(axisLineWidth = 1.5)%>%
+  dyEvent("2008-01-01", "Great Recession", labelLoc = "bottom") 
+  
+p_wage_dy2
+```
