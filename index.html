@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Interactive graphs - Ramzi Farhat</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="index_files/libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="index_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="index_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="index_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="index_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="index_files/libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="index_files/libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="index_files/libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet">
+<script src="index_files/libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="index_files/libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="index_files/libs/moment-2.8.4/moment.js"></script>
+<script src="index_files/libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="index_files/libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="index_files/libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Interactive graphs - Ramzi Farhat</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dygraphs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="graph-1" class="level2">
+<h2 class="anchored" data-anchor-id="graph-1"><strong>Graph 1:</strong></h2>
+</section>
+<section id="professor-salaries-by-rank-2008-2009" class="level2">
+<h2 class="anchored" data-anchor-id="professor-salaries-by-rank-2008-2009"><strong>Professor Salaries by rank, 2008-2009</strong></h2>
+<p>This plot shows the salaries of faculty at a select U.S. college from 2009 (R package ‘carData’).</p>
+<p>The data is grouped by professorial rank : Assistant, Associate, and full professors, and displayed by years since earning degree.</p>
+<p><u>Steps taken</u>:</p>
+<ul>
+<li><p>data was transformed to highlight format</p></li>
+<li><p>Moved title away from zoom and pan tab</p></li>
+<li><p>tooltip shows rank</p></li>
+<li><p>highlighting also shows subset of data by rank</p></li>
+</ul>
+<p><u>Findings</u>:</p>
+<p>With the interactivity, we can see that</p>
+<ul>
+<li><p>Assistant Professor salaries are the lowest</p></li>
+<li><p>Most Associate Professors make more than Assistant Professors. Some (outliers) have graduated more than 10 years ago, but their salaries have not increased. These are those who probably chose not to seek promotion to Full Professor.</p></li>
+<li><p>Most Full Professors make more than Assistants and Associates, but the variance is very large. Those in applied fields make more than those in theoretical fields.</p></li>
+<li><p>The mean salary is around 113,000 USD</p>
+<p><em>Issues: depending on its mood, the legend appears duplicated. not sure why!</em></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Salaries, <span class="at">package=</span><span class="st">"carData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Salaries<span class="sc">$</span>yrs.service <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Salaries<span class="sc">$</span>yrs.service)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Salaries<span class="sc">$</span>discipline) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Theoretical =</span> <span class="st">"A"</span>, <span class="at">Applied =</span> <span class="st">"B"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Salaries<span class="sc">$</span>rank) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Assistant_Professor =</span> <span class="st">"AsstProf"</span>, <span class="at">Associate_Professor =</span> <span class="st">"AssocProf"</span>, <span class="at">Professor =</span> <span class="st">"Prof"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Salaries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 rank discipline yrs.since.phd yrs.service  sex salary
+1           Professor    Applied            19          18 Male 139750
+2           Professor    Applied            20          16 Male 173200
+3 Assistant_Professor    Applied             4           3 Male  79750
+4           Professor    Applied            45          39 Male 115000
+5           Professor    Applied            40          41 Male 141500
+6 Associate_Professor    Applied             6           6 Male  97000</code></pre>
+</div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#transform data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Salaries_highlight <span class="ot">&lt;-</span> <span class="fu">highlight_key</span>(Salaries, <span class="sc">~</span>rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplot graph</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>p_ps <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> Salaries_highlight, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> yrs.since.phd, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">y =</span> salary,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">color=</span>discipline)) <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group =</span> rank), </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">12</span>) <span class="sc">+</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Salary (USD)"</span>) <span class="sc">+</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Time elapsed since PhD (years)"</span>) <span class="sc">+</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plotly graph</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p_ps_int <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p_ps, <span class="at">tooltip =</span> <span class="st">"rank"</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">highlight</span>(<span class="at">on =</span> <span class="st">"plotly_hover"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">off =</span> <span class="st">"plotly_relayout"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">legend =</span> <span class="fu">list</span>(<span class="at">x=</span><span class="dv">10</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xanchor=</span><span class="st">'right'</span>, <span class="at">yanchor=</span><span class="st">'bottom'</span>, <span class="at">title=</span><span class="fu">list</span>(<span class="at">text=</span><span class="st">'&lt;b&gt; Field &lt;/b&gt;'</span>)))<span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text=</span><span class="st">'Professor Salaries'</span>, <span class="at">y =</span> <span class="fl">0.95</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">xanchor =</span> <span class="st">'center'</span>, <span class="at">yanchor =</span>  <span class="st">'top'</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>p_ps_int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-3d01fe0b2d7add1c346f" style="width:100%;height:464px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3d01fe0b2d7add1c346f">{"x":{"data":[{"x":[38,37,39,31,36,34,24,13,21,35,18,31,11,10,15,40,20,19,3,37,12,21,30,39,4,5,14,32,24,25,24,54,28,2,32,4,11,56,10,3,35,20,16,17,10,21,14,15,19,38,20,3,9,16,39,29,26,38,36,8,28,25,7,46,19,5,31,38,23,19,17,30,21,28,29,39,20,31,4,28,12,22,30,9,32,41,45,31,31,37,36,43,14,47,13,42,42,4,8,8,12,52,31,24,46,39,37,51,45,8,49,28,2,29,8,33,32,39,11,19,40,18,17,49,45,39,27,28,14,46,33,7,31,5,22,20,14,29,35,22,49,39,28,11,14,23,30,20,43,43,15,10,35,33,13,23,12,30,27,28,4,6,38,11,8,27,8,44,27,15,29,29,38,33,40,30,33,31,42,25,8],"y":[103450,124750,137000,89565,102580,93904,113068,74830,106294,134885,83850,113543,82099,82600,81500,131205,112429,82100,72500,104279,105000,120806,148500,117515,72500,73500,115313,124309,97262,62884,96614,78162,155500,72500,113278,73000,83001,76840,77500,72500,168635,136000,108262,105668,73877,152664,100102,81500,106608,87800,122400,63900,70000,88175,133900,91000,73300,148750,117555,69700,81700,114000,63100,77202,96200,69200,122875,102600,108200,84273,90450,91100,101100,128800,204000,109000,102000,132000,77500,116450,83000,140300,74000,73800,92550,88600,107550,121200,126000,99000,134800,143940,104350,89650,103700,143250,194800,73000,74000,78500,93000,107200,163200,107100,100600,136500,103600,57800,155865,88650,81800,115800,85000,150500,74000,174500,168500,183800,104800,107300,97150,126300,148800,72300,70700,88600,127100,170500,105260,144050,111350,74500,122500,74000,166800,92050,108100,94350,100351,146800,88709,107309,109954,78785,121946,109646,138771,81285,205500,101036,115435,108413,131950,134690,78182,110515,109707,136660,103275,103649,74856,77081,150680,104121,75996,172505,86895,105000,125192,114330,139219,109305,119450,186023,166605,151292,103106,150564,101738,95329,81035],"text":["rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor"],"key":["Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","opacity":0.6,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(68,1,84,1)"}},"hoveron":"points","set":"SharedData4327c296","name":"Theoretical","legendgroup":"Theoretical","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[19,20,4,45,40,6,30,45,21,18,12,7,1,2,20,12,19,5,11,12,20,7,13,4,4,5,22,7,41,9,23,23,40,38,19,25,40,23,25,1,28,12,11,16,12,14,23,9,10,8,9,3,33,11,4,9,22,35,17,28,17,45,29,35,28,8,17,26,3,6,43,17,22,6,17,15,37,2,25,9,10,10,10,38,21,4,17,13,30,41,42,28,16,20,3,27,28,4,27,36,4,14,4,21,12,4,21,12,1,6,15,2,26,22,3,1,21,16,18,8,25,5,19,37,20,17,28,10,13,27,3,11,18,8,26,23,33,13,18,28,25,22,43,19,19,48,9,4,4,34,38,4,40,28,17,19,21,35,18,7,20,4,39,15,26,11,16,15,29,14,13,21,23,13,34,6,12,46,16,16,24,9,13,24,30,8,23,37,10,23,49,20,18,33,19,36,35,13,32,37,13,17,38,31,32,15,41,39,4,27,56,38,26,22,8,25],"y":[139750,173200,79750,115000,141500,97000,175000,147765,119250,129000,119800,79800,77700,78000,104800,117150,101000,82379,77000,118223,132261,79916,117256,80225,80225,77000,155750,86373,125196,100938,146500,93418,101299,231545,94384,114778,98193,151768,140096,70768,126621,108875,74692,106639,103760,83900,117704,90215,100135,75044,90304,75243,109785,103613,68404,100522,101000,99418,111512,91412,126320,146856,100131,92391,113398,73266,150480,193000,86100,84240,150743,135585,144640,88825,122960,132825,152708,88400,172272,107008,97032,105128,105631,166024,123683,84000,95611,129676,102235,106689,133217,126933,153303,127512,89942,112696,119015,92000,156938,144651,95079,128148,92000,111168,103994,92000,118971,113341,88000,95408,137167,89516,176500,98510,89942,88795,105890,167284,130664,101210,181257,91227,151575,93164,134185,105000,111751,95436,100944,147349,92000,142467,141136,100000,150000,101000,134000,103750,107500,106300,153750,180000,133700,122100,86250,90000,113600,92700,92000,189409,114500,92700,119700,160400,152500,165000,96545,162200,120000,91300,163200,91000,111350,128400,126200,118700,145350,146000,105350,109650,119500,170000,145200,107150,129600,84716,71065,67559,134550,135027,104428,95642,126431,161101,162221,84500,124714,151650,99247,134778,192253,116518,105450,145098,104542,151445,98053,145000,128464,137317,106231,124312,114596,162150,150376,107986,142023,128250,80139,144309,186960,93519,142500,138000,83600,145028],"text":["rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Assistant_Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Assistant_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Associate_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Professor","rank: Assistant_Professor","rank: Professor"],"key":["Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","opacity":0.6,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(253,231,37,1)"}},"hoveron":"points","set":"SharedData4327c296","name":"Applied","legendgroup":"Applied","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[2,2.68354430379747,3.36708860759494,4.05063291139241,4.73417721518987,5.41772151898734,6.10126582278481,6.78481012658228,7.46835443037975,8.15189873417722,8.83544303797468,9.51898734177215,10.2025316455696,10.8860759493671,11.5696202531646,12.253164556962,12.9367088607595,13.620253164557,14.3037974683544,14.9873417721519,15.6708860759494,16.3544303797468,17.0379746835443,17.7215189873418,18.4050632911392,19.0886075949367,19.7721518987342,20.4556962025316,21.1392405063291,21.8227848101266,22.506329113924,23.1898734177215,23.873417721519,24.5569620253165,25.2405063291139,25.9240506329114,26.6075949367089,27.2911392405063,27.9746835443038,28.6582278481013,29.3417721518987,30.0253164556962,30.7088607594937,31.3924050632911,32.0759493670886,32.7594936708861,33.4430379746835,34.126582278481,34.8101265822785,35.4936708860759,36.1772151898734,36.8607594936709,37.5443037974684,38.2278481012658,38.9113924050633,39.5949367088608,40.2784810126582,40.9620253164557,41.6455696202532,42.3291139240506,43.0126582278481,43.6962025316456,44.379746835443,45.0632911392405,45.746835443038,46.4303797468354,47.1139240506329,47.7974683544304,48.4810126582278,49.1645569620253,49.8481012658228,50.5316455696203,51.2151898734177,51.8987341772152,52.5822784810127,53.2658227848101,53.9493670886076,54.6329113924051,55.3164556962025,56],"y":[66153.3672345009,68121.8680287173,70065.2891558684,71984.3714773011,73879.8558543623,75752.4831483987,77602.9942207572,79432.1299327847,81240.631145828,83029.1921586308,84796.8571210153,86542.2511816373,88264.3966070845,89962.3156639442,91635.0306188039,93281.5637382511,94900.9372888732,96492.1735372578,98055.3159826968,99596.2862418264,101113.455298929,102603.476609778,104063.003630147,105488.689815809,106877.188622539,108225.153506109,109529.237922292,110802.345573385,112088.657312769,113377.683042253,114654.658665869,115904.820087651,117113.403211634,118265.643941849,119346.778182332,120342.041837115,121236.670810232,122012.856357126,122653.102847621,123199.191161116,123702.040995978,124212.58706185,124777.00276428,125378.668669611,125976.616469251,126529.877854608,126997.484517093,127338.468148112,127511.860439075,127476.693081391,127197.480183583,126756.576691652,126193.624847106,125507.121537449,124695.563650184,123757.448072818,122691.271692853,121495.531397796,120173.887253023,118731.958263019,117169.411035856,115485.89490676,113681.05921096,111754.553283682,109706.026460153,107535.128075601,105241.507465254,102824.813964337,100284.69690808,97620.8056317083,94832.7894704498,91920.2977595318,88882.9798341814,85720.4850296261,82432.462681093,79018.5621238093,75478.4326930025,71811.7237238997,68018.0845517281,64097.1645117152],"text":"","key":["Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor"],"type":"scatter","mode":"lines","name":"Theoretical","line":{"width":3.77952755905512,"color":"rgba(68,1,84,1)","dash":"solid"},"hoveron":"points","set":"SharedData4327c296","legendgroup":"Theoretical","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isSimpleKey":true,"_isNestedKey":false,"frame":null},{"x":[1,1.69620253164557,2.39240506329114,3.08860759493671,3.78481012658228,4.48101265822785,5.17721518987342,5.87341772151899,6.56962025316456,7.26582278481013,7.9620253164557,8.65822784810127,9.35443037974684,10.0506329113924,10.746835443038,11.4430379746835,12.1392405063291,12.8354430379747,13.5316455696203,14.2278481012658,14.9240506329114,15.620253164557,16.3164556962025,17.0126582278481,17.7088607594937,18.4050632911392,19.1012658227848,19.7974683544304,20.493670886076,21.1898734177215,21.8860759493671,22.5822784810127,23.2784810126582,23.9746835443038,24.6708860759494,25.3670886075949,26.0632911392405,26.7594936708861,27.4556962025316,28.1518987341772,28.8481012658228,29.5443037974684,30.2405063291139,30.9367088607595,31.6329113924051,32.3291139240506,33.0253164556962,33.7215189873418,34.4177215189873,35.1139240506329,35.8101265822785,36.5063291139241,37.2025316455696,37.8987341772152,38.5949367088608,39.2911392405063,39.9873417721519,40.6835443037975,41.379746835443,42.0759493670886,42.7721518987342,43.4683544303797,44.1645569620253,44.8607594936709,45.5569620253165,46.253164556962,46.9493670886076,47.6455696202532,48.3417721518987,49.0379746835443,49.7341772151899,50.4303797468354,51.126582278481,51.8227848101266,52.5189873417722,53.2151898734177,53.9113924050633,54.6075949367089,55.3037974683544,56],"y":[77662.8138888118,79510.9976223848,81363.7178939879,83234.2326501183,85135.7998372734,87081.6774019505,89084.7028733465,91141.8211973983,93237.2184500506,95356.0870851158,97483.6195564062,99605.0083177342,101705.445822912,103770.904847871,105939.297828625,108256.970871748,110632.429253104,112974.17824856,115190.72313398,117211.917297909,119239.346077205,121290.613157491,123294.661405507,125180.433687996,126876.872871698,128325.945659643,129559.748401222,130620.944515905,131548.681308131,132382.106082341,133160.366142976,133858.102847084,134393.648554347,134797.735390727,135103.538100818,135344.231429215,135552.990120513,135762.988919307,135969.248798566,136067.130698178,136060.953411762,135965.293528753,135794.727638587,135563.832330698,135287.184194522,134979.359819492,134654.935795045,134328.488710614,134014.595155635,133727.831719543,133482.774991772,133296.51328678,133182.300197812,133139.264672739,133165.984111033,133261.035912169,133422.997475619,133650.446200858,133941.959487358,134296.114734594,134711.489342038,135186.660709164,135720.206235445,136310.703320356,136956.729363369,137656.861763958,138409.677921597,139213.755235758,140067.671105916,140970.002931543,141919.328112114,142914.224047101,143953.268135979,145035.03777822,146158.110373298,147321.063320687,148522.47401986,149760.91987029,151034.978271451,152343.226622817],"text":"","key":["Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor"],"type":"scatter","mode":"lines","name":"Applied","line":{"width":3.77952755905512,"color":"rgba(253,231,37,1)","dash":"solid"},"hoveron":"points","set":"SharedData4327c296","legendgroup":"Applied","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isSimpleKey":true,"_isNestedKey":false,"frame":null},{"x":[2,2.68354430379747,3.36708860759494,4.05063291139241,4.73417721518987,5.41772151898734,6.10126582278481,6.78481012658228,7.46835443037975,8.15189873417722,8.83544303797468,9.51898734177215,10.2025316455696,10.8860759493671,11.5696202531646,12.253164556962,12.9367088607595,13.620253164557,14.3037974683544,14.9873417721519,15.6708860759494,16.3544303797468,17.0379746835443,17.7215189873418,18.4050632911392,19.0886075949367,19.7721518987342,20.4556962025316,21.1392405063291,21.8227848101266,22.506329113924,23.1898734177215,23.873417721519,24.5569620253165,25.2405063291139,25.9240506329114,26.6075949367089,27.2911392405063,27.9746835443038,28.6582278481013,29.3417721518987,30.0253164556962,30.7088607594937,31.3924050632911,32.0759493670886,32.7594936708861,33.4430379746835,34.126582278481,34.8101265822785,35.4936708860759,36.1772151898734,36.8607594936709,37.5443037974684,38.2278481012658,38.9113924050633,39.5949367088608,40.2784810126582,40.9620253164557,41.6455696202532,42.3291139240506,43.0126582278481,43.6962025316456,44.379746835443,45.0632911392405,45.746835443038,46.4303797468354,47.1139240506329,47.7974683544304,48.4810126582278,49.1645569620253,49.8481012658228,50.5316455696203,51.2151898734177,51.8987341772152,52.5822784810127,53.2658227848101,53.9493670886076,54.6329113924051,55.3164556962025,56,56,55.3164556962025,54.6329113924051,53.9493670886076,53.2658227848101,52.5822784810127,51.8987341772152,51.2151898734177,50.5316455696203,49.8481012658228,49.1645569620253,48.4810126582278,47.7974683544304,47.1139240506329,46.4303797468354,45.746835443038,45.0632911392405,44.379746835443,43.6962025316456,43.0126582278481,42.3291139240506,41.6455696202532,40.9620253164557,40.2784810126582,39.5949367088608,38.9113924050633,38.2278481012658,37.5443037974684,36.8607594936709,36.1772151898734,35.4936708860759,34.8101265822785,34.126582278481,33.4430379746835,32.7594936708861,32.0759493670886,31.3924050632911,30.7088607594937,30.0253164556962,29.3417721518987,28.6582278481013,27.9746835443038,27.2911392405063,26.6075949367089,25.9240506329114,25.2405063291139,24.5569620253165,23.873417721519,23.1898734177215,22.506329113924,21.8227848101266,21.1392405063291,20.4556962025316,19.7721518987342,19.0886075949367,18.4050632911392,17.7215189873418,17.0379746835443,16.3544303797468,15.6708860759494,14.9873417721519,14.3037974683544,13.620253164557,12.9367088607595,12.253164556962,11.5696202531646,10.8860759493671,10.2025316455696,9.51898734177215,8.83544303797468,8.15189873417722,7.46835443037975,6.78481012658228,6.10126582278481,5.41772151898734,4.73417721518987,4.05063291139241,3.36708860759494,2.68354430379747,2,2],"y":[51361.2064312351,54720.0495458495,57946.3432967227,61033.2188529333,63973.3720135115,66759.6218201572,69385.9436061145,71849.0429896902,74150.2728429147,76297.2844716984,78304.0130160841,80187.4161136554,81965.4528546386,83655.8053162026,85274.8026401583,86836.799179172,88353.9793372049,89836.4369822656,91299.5819799789,92791.5612995877,94287.2300000332,95744.9878449017,97133.7854171673,98442.8843246245,99685.0910560005,100893.0836953,102111.15075438,103408.453370378,104851.256188071,106371.530493168,107888.202427253,109325.441348305,110626.095943459,111764.144531713,112748.826571395,113617.144234645,114419.508341955,115202.181313502,115936.040039835,116548.954207223,117049.82448799,117554.820081711,118192.721413617,118924.651170523,119664.91774027,120334.293429134,120868.002577797,121221.123697305,121368.579236712,121298.912429265,121007.653450821,120564.256341932,119989.027023901,119273.145420492,118412.313671909,117406.499195619,116258.445031264,114971.10784983,113540.737447496,111956.131613797,110207.762512143,108285.885191874,106181.181384026,103885.365680418,101391.640694801,98694.9303344863,95791.8790904303,92680.6628067508,89360.6886265368,85832.2624937169,82096.2818382195,78153.9840996722,74006.7594190716,69656.0220818787,65103.1292595555,60349.3346153462,55395.7659004802,50243.4180759193,44893.1558521298,39345.7214816576,88848.6075417727,91143.0132513264,93380.0293718801,95561.0994855247,97687.7896322725,99761.7961026304,101784.947977373,103759.200249291,105686.611419391,107569.29710268,109409.3487697,111208.705189623,112968.965121924,114691.135840077,116375.325816716,118020.412225505,119623.740886945,121180.937037894,122685.904621647,124131.059559569,125507.784912241,126807.03705855,128019.954945761,129124.098354443,130108.396950017,130978.813628459,131741.097654405,132398.222670311,132948.897041373,133387.306916345,133654.473733516,133655.141641438,133455.812598918,133126.966456388,132725.462280083,132288.315198232,131832.686168699,131361.284114944,130870.354041989,130354.257503967,129849.428115008,129370.165655408,128823.531400751,128053.833278509,127066.939439585,125944.729793269,124767.143351986,123600.710479809,122484.198826998,121421.114904484,120383.835591337,119326.058437467,118196.237776392,116947.325090205,115557.223316917,114069.286189077,112534.495306994,110992.221843126,109461.965374654,107939.680597825,106401.011184065,104811.049985415,103147.91009225,101447.895240541,99726.3282973301,97995.2585974494,96268.8260116858,94563.3403595303,92897.0862496193,91289.7012259464,89761.0998455631,88330.9894487413,87015.2168758793,85820.0448353999,84745.3444766402,83786.339695213,82935.5241016689,82184.2350150141,81523.686511585,80945.5280377666,51361.2064312351],"text":"","key":["Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.2)","hoveron":"points","hoverinfo":"x+y","name":"Theoretical","legendgroup":"Theoretical","showlegend":false,"xaxis":"x","yaxis":"y","_isSimpleKey":true,"_isNestedKey":false,"frame":null},{"x":[1,1.69620253164557,2.39240506329114,3.08860759493671,3.78481012658228,4.48101265822785,5.17721518987342,5.87341772151899,6.56962025316456,7.26582278481013,7.9620253164557,8.65822784810127,9.35443037974684,10.0506329113924,10.746835443038,11.4430379746835,12.1392405063291,12.8354430379747,13.5316455696203,14.2278481012658,14.9240506329114,15.620253164557,16.3164556962025,17.0126582278481,17.7088607594937,18.4050632911392,19.1012658227848,19.7974683544304,20.493670886076,21.1898734177215,21.8860759493671,22.5822784810127,23.2784810126582,23.9746835443038,24.6708860759494,25.3670886075949,26.0632911392405,26.7594936708861,27.4556962025316,28.1518987341772,28.8481012658228,29.5443037974684,30.2405063291139,30.9367088607595,31.6329113924051,32.3291139240506,33.0253164556962,33.7215189873418,34.4177215189873,35.1139240506329,35.8101265822785,36.5063291139241,37.2025316455696,37.8987341772152,38.5949367088608,39.2911392405063,39.9873417721519,40.6835443037975,41.379746835443,42.0759493670886,42.7721518987342,43.4683544303797,44.1645569620253,44.8607594936709,45.5569620253165,46.253164556962,46.9493670886076,47.6455696202532,48.3417721518987,49.0379746835443,49.7341772151899,50.4303797468354,51.126582278481,51.8227848101266,52.5189873417722,53.2151898734177,53.9113924050633,54.6075949367089,55.3037974683544,56,56,56,55.3037974683544,54.6075949367089,53.9113924050633,53.2151898734177,52.5189873417722,51.8227848101266,51.126582278481,50.4303797468354,49.7341772151899,49.0379746835443,48.3417721518987,47.6455696202532,46.9493670886076,46.253164556962,45.5569620253165,44.8607594936709,44.1645569620253,43.4683544303797,42.7721518987342,42.0759493670886,41.379746835443,40.6835443037975,39.9873417721519,39.2911392405063,38.5949367088608,37.8987341772152,37.2025316455696,36.5063291139241,35.8101265822785,35.1139240506329,34.4177215189873,33.7215189873418,33.0253164556962,32.3291139240506,31.6329113924051,30.9367088607595,30.2405063291139,29.5443037974684,28.8481012658228,28.1518987341772,27.4556962025316,26.7594936708861,26.0632911392405,25.3670886075949,24.6708860759494,23.9746835443038,23.2784810126582,22.5822784810127,21.8860759493671,21.1898734177215,20.493670886076,19.7974683544304,19.1012658227848,18.4050632911392,17.7088607594937,17.0126582278481,16.3164556962025,15.620253164557,14.9240506329114,14.2278481012658,13.5316455696203,12.8354430379747,12.1392405063291,11.4430379746835,10.746835443038,10.0506329113924,9.35443037974684,8.65822784810127,7.9620253164557,7.26582278481013,6.56962025316456,5.87341772151899,5.17721518987342,4.48101265822785,3.78481012658228,3.08860759493671,2.39240506329114,1.69620253164557,1,1],"y":[65947.8206311125,69218.8871197472,72340.6716168957,75310.4222813278,78126.4816431841,80792.0667950654,83320.216334669,85722.0034507204,88006.9641748173,90192.795214649,92299.5509979782,94344.887658024,96341.2314334783,98295.9445437808,100388.025182788,102662.125339167,104993.462621215,107280.716030755,109455.543897731,111499.088050173,113662.574492947,115840.636452344,117849.524103156,119618.518747698,121190.852712234,122650.863731731,123997.200023352,125163.346036346,126120.376610016,126910.406330644,127639.572428351,128348.514038114,128913.479519675,129304.891257197,129524.138853358,129613.220680556,129650.666897603,129734.745222071,129903.359086261,130002.981746052,130019.542672704,129954.42340323,129810.745471557,129594.490983024,129315.325648854,128986.946022447,128626.826536087,128255.360509795,127894.49718524,127566.006224107,127289.439593654,127074.764356778,126912.174447647,126795.716233781,126718.416773535,126672.119196004,126647.970850591,126636.982602662,126630.596645602,126621.181069232,126602.375802155,126569.248127201,126518.262954519,126447.112725305,126354.470045184,126239.722056875,126102.728074162,125943.621779968,125762.663240268,125560.136273898,125336.282480376,125091.262550681,124825.136615894,124537.857143294,124229.269629031,123899.117791853,123547.051081723,123172.633113099,122775.350179354,122354.619367391,122354.619367391,182331.833878243,179294.606363548,176349.206627481,173497.896957996,170743.008849521,168086.951117565,165532.218413145,163081.399656063,160737.185543521,158502.373743852,156379.869589189,154372.678971563,152483.888691548,150716.627769031,149074.001471041,147558.988681554,146174.293915407,144922.149516372,143804.073291127,142820.60288192,141971.048399955,141253.322329114,140663.909799054,140198.024100647,139849.952628334,139613.551448531,139482.813111696,139452.425947977,139518.262216783,139676.110389891,139889.657214979,140134.69312603,140401.616911434,140683.045054002,140971.773616537,141259.04274019,141533.173678373,141778.709805618,141976.163654277,142102.364150819,142131.279650303,142035.138510871,141791.232616544,141455.313343423,141075.242177874,140682.937348277,140290.579524256,139873.817589019,139367.691656053,138681.159857602,137853.805834039,136976.986006245,136078.542995463,135122.296779092,134001.027587555,132562.893031163,130742.348628294,128739.798707858,126740.589862638,124816.117661463,122924.746545646,120925.902370229,118667.640466365,116271.395884993,113851.816404328,111490.570474463,109245.865151962,107069.660212346,104865.128977444,102667.688114834,100519.378955583,98467.472725284,96561.6389440763,94849.1894120241,93371.2880088356,92145.1180313627,91158.0430189088,90386.76417108,89803.1081250223,89377.807146511,65947.8206311125],"text":"","key":["Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Assistant_Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Associate_Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Associate_Professor","Assistant_Professor","Assistant_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Professor","Associate_Professor","Professor","Assistant_Professor","Associate_Professor","Professor","Professor","Professor","Professor","Associate_Professor","Associate_Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Associate_Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor","Professor","Professor","Professor","Professor","Assistant_Professor","Professor"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.2)","hoveron":"points","hoverinfo":"x+y","name":"Applied","legendgroup":"Applied","showlegend":false,"xaxis":"x","yaxis":"y","_isSimpleKey":true,"_isNestedKey":false,"frame":null}],"layout":{"margin":{"t":27.1581569115816,"r":7.97011207970112,"b":43.8356164383562,"l":78.9041095890411},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1.75,58.75],"tickmode":"array","ticktext":["10","20","30","40","50"],"tickvals":[10,20,30,40,50],"categoryorder":"array","categoryarray":["10","20","30","40","50"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.724555643609193,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Time elapsed since PhD (years)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[29735.7575557405,241154.963925917],"tickmode":"array","ticktext":["$50,000","$100,000","$150,000","$200,000"],"tickvals":[50000,100000,150000,200000],"categoryorder":"array","categoryarray":["$50,000","$100,000","$150,000","$200,000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.724555643609193,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Salary (USD)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":2.06156048675734,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"title":{"text":"<b> Field <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"x":10,"y":0,"xanchor":"right","yanchor":"bottom"},"hovermode":"closest","barmode":"relative","title":{"text":"Professor Salaries","y":0.95,"x":0.5,"xanchor":"center","yanchor":"top"},"dragmode":"zoom"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"47ac386483":{"x":{},"y":{},"colour":{},"type":"scatter"},"47ac98eea3":{"x":{},"y":{},"colour":{}}},"cur_data":"47ac386483","visdat":{"47ac386483":["function (y) ","x"],"47ac98eea3":["function (y) ","x"]},"highlight":{"on":"plotly_hover","off":"plotly_relayout","persistent":false,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedData4327c296"]},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Salaries<span class="sc">$</span>salary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 113706.5</code></pre>
+</div>
+</div>
+</section>
+<section id="graph-2" class="level2">
+<h2 class="anchored" data-anchor-id="graph-2"><strong>Graph 2:</strong></h2>
+</section>
+<section id="comparing-u.s.-and-professor-salaries-1991-2019" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-u.s.-and-professor-salaries-1991-2019"><strong>Comparing U.S. and Professor Salaries, 1991-2019</strong></h2>
+<p>Form the previous graph, the mean salary was around 113K USD in 2009. How does that compare to U.S. salaries then, and to salaries of professors nationwide?</p>
+<p><em>The data for U.S. salaries was collected from:</em></p>
+<p>https://www.ssa.gov/oact/cola/central.html</p>
+<p><em>The data for professorial salaries was collected from:</em></p>
+<p>https://nces.ed.gov/programs/digest/d19/tables/dt19_316.10.asp</p>
+<p><u>Steps taken</u>:</p>
+<ul>
+<li><p>proper date formatting</p></li>
+<li><p>data transformed to xts format</p></li>
+<li><p>3 dyseries plotted</p></li>
+<li><p>range selector added</p></li>
+<li><p>hover options changed</p></li>
+<li><p>annotation added at date college data was collected (2009) for comparison</p></li>
+<li><p>vertical line added at 2008 - great recession - for reference</p></li>
+</ul>
+<p><u>Findings</u>:</p>
+<ul>
+<li><p>In general, faculty salaries are higher than both the mean and median of U.S. salaries</p></li>
+<li><p>In 2009, nationwide professors salaries were around 75K, while the mean U.S. salary was 39K, and the median was 26K (rounded up to the nearest thousand). Predictably, faculty make significantly more money than the average worker</p></li>
+<li><p>After the great recession, salaries of university faculty and other workers started to diverge more</p></li>
+<li><p>At 113K, the college in 2009 was paying salaries the were much higher than the national average. Although we don’t have more information about it, it seems to be an elite college</p>
+<p><em>Issues: I tried resizing the graph to get rid of the scroll bars, but was only able to do it for the horizontal one!</em></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read data </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>wagexts <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"wagedataxts.csv"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>wagexts<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(wagexts<span class="sc">$</span>Year) </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>wagexts<span class="sc">$</span>Year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1991-01-01" "1992-01-01" "1993-01-01" "1994-01-01" "1995-01-01"
+ [6] "1996-01-01" "1997-01-01" "1998-01-01" "1999-01-01" "2000-01-01"
+[11] "2001-01-01" "2002-01-01" "2003-01-01" "2004-01-01" "2005-01-01"
+[16] "2006-01-01" "2007-01-01" "2008-01-01" "2009-01-01" "2010-01-01"
+[21] "2011-01-01" "2012-01-01" "2013-01-01" "2014-01-01" "2015-01-01"
+[26] "2016-01-01" "2017-01-01" "2018-01-01" "2019-01-01" "2020-01-01"</code></pre>
+</div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>xts_wage <span class="ot">&lt;-</span> xts<span class="sc">::</span><span class="fu">xts</span>(<span class="at">x =</span> wagexts <span class="sc">%&gt;%</span> <span class="fu">select</span>(Mean_Wage, Median_Wage, Professor_Wage),  <span class="co"># data (y axis)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">order.by =</span> wagexts <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Year))                <span class="co"># date (x axis)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>xts_wage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Mean_Wage Median_Wage Professor_Wage
+1991-01-01     20924       15076          42165
+1992-01-01     22002       15610          43851
+1993-01-01     22191       15691          44714
+1994-01-01     22787       16118          46364
+1995-01-01     23700       16650          47811
+1996-01-01     24859       17403          49309
+1997-01-01     26310       18277          50829
+1998-01-01     27687       19157          52335
+1999-01-01     29230       20102          54097
+2000-01-01     30846       20957          55888
+2001-01-01     31582       21767          57373
+2002-01-01     31899       22153          59742
+2003-01-01     32678       22577          61330
+2004-01-01     34198       23356          62579
+2005-01-01     35449       23962          64234
+2006-01-01     37078       24892          66172
+2007-01-01     38761       25737          68479
+2008-01-01     39653       26514          71101
+2009-01-01     39055       26261          73587
+2010-01-01     39959       26364          74620
+2011-01-01     41211       26965          75481
+2012-01-01     42498       27519          76567
+2013-01-01     43041       28031          77278
+2014-01-01     44569       28851          78733
+2015-01-01     46120       29930          80157
+2016-01-01     46641       30533          82224
+2017-01-01     48252       31561          84737
+2018-01-01     50000       32838          86870
+2019-01-01     51916       34248          88703
+2020-01-01     53383       34612             NA</code></pre>
+</div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#basic plot </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p_wage_dy <span class="ot">&lt;-</span> <span class="fu">dygraph</span>(xts_wage,  <span class="at">height =</span> <span class="st">"350"</span>, <span class="at">width=</span><span class="st">"85%"</span>, <span class="at">main =</span> <span class="st">"U.S. Mean and Median vs. Professor Salaries"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dyAxis</span>(<span class="st">"x"</span>, <span class="at">drawGrid =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dySeries</span>(<span class="st">"Mean_Wage"</span>, <span class="at">label =</span> <span class="st">"Mean"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dySeries</span>(<span class="st">"Median_Wage"</span>, <span class="at">label =</span> <span class="st">"Median"</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dySeries</span>(<span class="st">"Professor_Wage"</span>, <span class="at">label =</span> <span class="st">"Professor"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">strokeWidth =</span> <span class="dv">2</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dyRangeSelector</span>(<span class="at">height =</span> <span class="dv">20</span>, <span class="at">strokeColor =</span> <span class="st">""</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dyAnnotation</span>(<span class="st">"2009-01-01"</span>, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">text =</span> <span class="st">"2009"</span>, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">width=</span><span class="dv">34</span>, </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">height=</span><span class="dv">20</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">tooltip =</span> <span class="st">"Median salary from college survey in 2009 was $113,000"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with labels</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p_wage_dy2 <span class="ot">&lt;-</span> p_wage_dy <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">dyAxis</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"y"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Salaries (USD)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">dyAxis</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"x"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Year"</span>, <span class="at">valueRange =</span> <span class="fu">c</span>(<span class="dv">1991</span>, <span class="dv">2018</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dyOptions</span>(<span class="at">axisLineWidth =</span> <span class="fl">1.5</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dyEvent</span>(<span class="st">"2008-01-01"</span>, <span class="st">"Great Recession"</span>, <span class="at">labelLoc =</span> <span class="st">"bottom"</span>) </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>p_wage_dy2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-edd07d61b64bc153490e" style="width:85%;height:350px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-edd07d61b64bc153490e">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawGrid":false,"valueRange":[1991,2018],"drawAxis":true},"y":{"drawAxis":true}},"series":{"Mean":{"axis":"y"},"Median":{"axis":"y"},"Professor":{"axis":"y","strokeWidth":2}},"title":"U.S. Mean and Median vs. Professor Salaries","labels":["year","Mean","Median","Professor"],"legend":"auto","retainDateWindow":false,"colors":["#400080","#008080","red"],"showRangeSelector":true,"rangeSelectorHeight":20,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"","interactionModel":"Dygraph.Interaction.defaultModel","ylabel":"Salaries (USD)","xlabel":"Year","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":true,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false},"scale":"yearly","annotations":[{"x":"2009-01-01T00:00:00.000Z","shortText":"2009","text":"Median salary from college survey in 2009 was $113,000","width":34,"height":20,"attachAtBottom":false,"series":"Professor"}],"shadings":[],"events":[{"pos":"2008-01-01T00:00:00.000Z","label":"Great Recession","labelLoc":"bottom","color":"black","strokePattern":[7,3],"axis":"x"}],"format":"date","data":[["1991-01-01T00:00:00.000Z","1992-01-01T00:00:00.000Z","1993-01-01T00:00:00.000Z","1994-01-01T00:00:00.000Z","1995-01-01T00:00:00.000Z","1996-01-01T00:00:00.000Z","1997-01-01T00:00:00.000Z","1998-01-01T00:00:00.000Z","1999-01-01T00:00:00.000Z","2000-01-01T00:00:00.000Z","2001-01-01T00:00:00.000Z","2002-01-01T00:00:00.000Z","2003-01-01T00:00:00.000Z","2004-01-01T00:00:00.000Z","2005-01-01T00:00:00.000Z","2006-01-01T00:00:00.000Z","2007-01-01T00:00:00.000Z","2008-01-01T00:00:00.000Z","2009-01-01T00:00:00.000Z","2010-01-01T00:00:00.000Z","2011-01-01T00:00:00.000Z","2012-01-01T00:00:00.000Z","2013-01-01T00:00:00.000Z","2014-01-01T00:00:00.000Z","2015-01-01T00:00:00.000Z","2016-01-01T00:00:00.000Z","2017-01-01T00:00:00.000Z","2018-01-01T00:00:00.000Z","2019-01-01T00:00:00.000Z","2020-01-01T00:00:00.000Z"],[20924,22002,22191,22787,23700,24859,26310,27687,29230,30846,31582,31899,32678,34198,35449,37078,38761,39653,39055,39959,41211,42498,43041,44569,46120,46641,48252,50000,51916,53383],[15076,15610,15691,16118,16650,17403,18277,19157,20102,20957,21767,22153,22577,23356,23962,24892,25737,26514,26261,26364,26965,27519,28031,28851,29930,30533,31561,32838,34248,34612],[42165,43851,44714,46364,47811,49309,50829,52335,54097,55888,57373,59742,61330,62579,64234,66172,68479,71101,73587,74620,75481,76567,77278,78733,80157,82224,84737,86870,88703,null]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
